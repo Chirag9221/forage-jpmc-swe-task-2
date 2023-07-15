@@ -15,6 +15,8 @@ interface IProps {
  * This interface acts as a wrapper for Typescript compiler.
  */
 interface PerspectiveViewerElement {
+  setAttribute(arg0: string, arg1: string): unknown;
+  // setAttribute(arg0: string, arg1: string): unknown;
   load: (table: Table) => void,
 }
 
@@ -32,7 +34,7 @@ class Graph extends Component<IProps, {}> {
 
   componentDidMount() {
     // Get element to attach the table from the DOM.
-    const elem: PerspectiveViewerElement = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
+    const elem = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
 
     const schema = {
       stock: 'string',
@@ -49,6 +51,13 @@ class Graph extends Component<IProps, {}> {
 
       // Add more Perspective configurations here.
       elem.load(this.table);
+      // elem.setAttribute =
+      elem.setAttribute('view' , 'y_line');
+      // elem.setAttribute('view','y_line');
+      elem.setAttribute('column-pivots', '["stock"]');
+      elem.setAttribute('row-pivots','["timestamp"]');
+      elem.setAttribute('column','["top_ask_price"]');
+      elem.setAttribute('aggregates', '{"stock":"distinct count","top_ask_price":"avg","top_bid_price":"avg","timestamp":"distinct count"}');
     }
   }
 
